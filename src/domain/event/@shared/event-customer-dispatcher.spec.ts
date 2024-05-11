@@ -1,8 +1,7 @@
 import Address from "../../entity/address";
 import Customer from "../../entity/customer";
 import CustomerAddressChangedEvent from "../customer/customer-address-changed-event";
-import CustomerCreated1Event from "../customer/customer-created-1.event";
-import CustomerCreated2Event from "../customer/customer-created-2.event";
+import CustomerCreatedEvent from "../customer/customer-created-1.event";
 import LogWhenCustomerAddressChanged from "../customer/handler/log-when-customer-address-changed.handler";
 import LogWhenCustomerCreated1 from "../customer/handler/log-when-customer-created-1.handler";
 import LogWhenCustomerCreated2 from "../customer/handler/log-when-customer-created-2.handler";
@@ -10,8 +9,7 @@ import EventDispatcher from "./event-dispatcher";
 
 describe("Domain events tests", () => {
   enum eventName {
-    CustomerCreated1Event = "CustomerCreated1Event",
-    CustomerCreated2Event = "CustomerCreated2Event",
+    CustomerCreatedEvent = "CustomerCreatedEvent",
     CustomerAddressChangedEvent = "CustomerAddressChangedEvent",
   }
   it("should register an event handler", () => {
@@ -22,11 +20,11 @@ describe("Domain events tests", () => {
       new LogWhenCustomerAddressChanged();
 
     eventDispatcher.register(
-      eventName.CustomerCreated1Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated1
     );
     eventDispatcher.register(
-      eventName.CustomerCreated2Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated2
     );
     eventDispatcher.register(
@@ -35,23 +33,23 @@ describe("Domain events tests", () => {
     );
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeDefined();
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event].length
-    ).toBe(1);
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent].length
+    ).toBe(2);
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][0]
     ).toMatchObject(EventHandlerCustomerCreated1);
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeDefined();
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event].length
-    ).toBe(1);
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent].length
+    ).toBe(2);
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][1]
     ).toMatchObject(EventHandlerCustomerCreated2);
 
     expect(
@@ -74,11 +72,11 @@ describe("Domain events tests", () => {
       new LogWhenCustomerAddressChanged();
 
     eventDispatcher.register(
-      eventName.CustomerCreated1Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated1
     );
     eventDispatcher.register(
-      eventName.CustomerCreated2Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated2
     );
     eventDispatcher.register(
@@ -87,21 +85,21 @@ describe("Domain events tests", () => {
     );
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][0]
     ).toMatchObject(EventHandlerCustomerCreated1);
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][0]
     ).toMatchObject(EventHandlerCustomerCreated2);
     expect(
       eventDispatcher.getEventHandlers[eventName.CustomerAddressChangedEvent][0]
     ).toMatchObject(EventHandlerCustomerAddressChanged2);
 
     eventDispatcher.unregister(
-      eventName.CustomerCreated1Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated1
     );
     eventDispatcher.unregister(
-      eventName.CustomerCreated2Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated2
     );
     eventDispatcher.unregister(
@@ -110,17 +108,17 @@ describe("Domain events tests", () => {
     );
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeDefined();
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event].length
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent].length
     ).toBe(0);
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeDefined();
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event].length
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent].length
     ).toBe(0);
 
     expect(
@@ -140,11 +138,11 @@ describe("Domain events tests", () => {
       new LogWhenCustomerAddressChanged();
 
     eventDispatcher.register(
-      eventName.CustomerCreated1Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated1
     );
     eventDispatcher.register(
-      eventName.CustomerCreated2Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated2
     );
     eventDispatcher.register(
@@ -153,10 +151,10 @@ describe("Domain events tests", () => {
     );
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toMatchObject(EventHandlerCustomerCreated1);
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toMatchObject(EventHandlerCustomerCreated2);
     expect(
       eventDispatcher.getEventHandlers[eventName.CustomerAddressChangedEvent]
@@ -165,10 +163,10 @@ describe("Domain events tests", () => {
     eventDispatcher.unregisterAll();
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeUndefined();
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent]
     ).toBeUndefined();
     expect(
       eventDispatcher.getEventHandlers[eventName.CustomerAddressChangedEvent]
@@ -191,11 +189,11 @@ describe("Domain events tests", () => {
     );
 
     eventDispatcher.register(
-      eventName.CustomerCreated1Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated1
     );
     eventDispatcher.register(
-      eventName.CustomerCreated2Event,
+      eventName.CustomerCreatedEvent,
       EventHandlerCustomerCreated2
     );
     eventDispatcher.register(
@@ -204,18 +202,18 @@ describe("Domain events tests", () => {
     );
 
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated1Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][0]
     ).toMatchObject(EventHandlerCustomerCreated1);
     expect(
-      eventDispatcher.getEventHandlers[eventName.CustomerCreated2Event][0]
+      eventDispatcher.getEventHandlers[eventName.CustomerCreatedEvent][1]
     ).toMatchObject(EventHandlerCustomerCreated2);
     expect(
       eventDispatcher.getEventHandlers[eventName.CustomerAddressChangedEvent][0]
     ).toMatchObject(EventHandlerCustomerAddressChanged2);
 
     const customer = new Customer("c1", "Customer 1");
-    const customerCreated1Event = new CustomerCreated1Event(null);
-    const customerCreated2Event = new CustomerCreated2Event(null);
+    const customerCreated1Event = new CustomerCreatedEvent(null);
+    const customerCreated2Event = new CustomerCreatedEvent(null);
     const address = new Address("street", 30, "62823-000", "city");
 
     customer.changeAddress(address);

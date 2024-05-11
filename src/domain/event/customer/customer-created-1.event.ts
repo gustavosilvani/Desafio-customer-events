@@ -1,6 +1,6 @@
 import IEvent from "../@shared/event.interface";
 
-export default class CustomerCreated1Event implements IEvent {
+export default class CustomerCreatedEvent implements IEvent {
   dataTimeOcurred: Date;
   eventData: any;
 
